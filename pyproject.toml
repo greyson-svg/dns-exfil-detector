@@ -1,0 +1,57 @@
+[project]
+name = "dns-exfil"
+version = "0.1.0"
+description = "ML-based detection of DNS used as a covert exfiltration or C2 channel."
+readme = "README.md"
+authors = [
+    { name = "greyson-svg", email = "greysonballard@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "ipykernel>=7.2.0",
+    "jupyterlab>=4.5.7",
+    "matplotlib>=3.10.9",
+    "numpy>=2.4.6",
+    "pandas>=3.0.3",
+    "pyarrow>=24.0.0",
+    "scipy>=1.17.1",
+    "seaborn>=0.13.2",
+]
+
+[build-system]
+requires = ["uv_build>=0.11.14,<0.12.0"]
+build-backend = "uv_build"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = [
+    "E",      # pycodestyle errors
+    "W",      # pycodestyle warnings
+    "F",      # pyflakes
+    "I",      # isort
+    "B",      # flake8-bugbear
+    "UP",     # pyupgrade
+    "SIM",    # flake8-simplify
+    "RUF",    # ruff-specific
+]
+ignore = [
+    "E501",   # line-too-long (formatter handles it)
+]
+
+[tool.ruff.lint.per-file-ignores]
+"notebooks/*" = ["E402", "F401"]  # notebooks have looser conventions
+"tests/*" = ["S101"]               # asserts are fine in tests
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.3",
+    "ruff>=0.15.13",
+]
+
